@@ -10,9 +10,13 @@ https://trello.com/b/FD9xatrj/final-project-board
 
 ##Models
 *User Model - will include the className of the model and will include an export property in order to extract information from it.
+
 *Jobs Model - will include the className of the model and will include an export property in order to extract information from it.
+
 *Companies Model - will include the className of the model and will include an export property in order to extract information from it.
+
 *Cities Model - will include the className of the model and will include an export property in order to extract information from it.
+
 *Employers Model - will include the className of the model and will include an export property in order to extract information from it.
 
 ##APIs, Plugins, Libraries and Frameworks
