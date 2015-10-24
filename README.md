@@ -27,5 +27,7 @@ Parse, React, Bootstrap
 
 ##Contact
 https://www.linkedin.com/profile/preview?locale=en_US&trk=prof-0-sb-preview-primary-button
+
 https://twitter.com/mory115
+
 https://www.facebook.com/mory.friedman
