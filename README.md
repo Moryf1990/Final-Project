@@ -7,6 +7,8 @@ How many times have you been frustrated because something came up and you couldn
 https://trello.com/b/FD9xatrj/final-project-board
 
 ## Wireframes
+Balsamiq
+draw.
 
 ##Models
 *User Model - will include the className of the model and will include an export property in order to extract information from it.
@@ -14,6 +16,11 @@ https://trello.com/b/FD9xatrj/final-project-board
 *Leauge Model - will include the className of the model and will include an export property in order to extract information from it.
 
 *Teams Model - will include the className of the model and will include an export property in order to extract information from it.
+
+##Contact
+https://www.linkedin.com/profile/preview?locale=en_US&trk=prof-0-sb-preview-primary-button
+https://twitter.com/mory115
+https://www.facebook.com/mory.friedman
 
 *Schedules Model - will include the className of the model and will include an export property in order to extract information from it.
 
