@@ -17,14 +17,15 @@ draw.
 
 *Teams Model - will include the className of the model and will include an export property in order to extract information from it.
 
-##Contact
-https://www.linkedin.com/profile/preview?locale=en_US&trk=prof-0-sb-preview-primary-button
-https://twitter.com/mory115
-https://www.facebook.com/mory.friedman
-
 *Schedules Model - will include the className of the model and will include an export property in order to extract information from it.
 
 *Employers Model - will include the className of the model and will include an export property in order to extract information from it.
 
 ##APIs, Plugins, Libraries and Frameworks
 Parse, React, Bootstrap
+
+
+##Contact
+https://www.linkedin.com/profile/preview?locale=en_US&trk=prof-0-sb-preview-primary-button
+https://twitter.com/mory115
+https://www.facebook.com/mory.friedman
