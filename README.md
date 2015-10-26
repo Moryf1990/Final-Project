@@ -9,7 +9,8 @@ https://trello.com/b/FD9xatrj/final-project-board
 ## Wireframes
 [Wireframes](https://moryf.mybalsamiq.com/projects/ironyardfinalproject/edit)
 
-draw.io
+##Data Models 
+https://www.draw.io/#G0BwMaxZl3OwK8OHdJdEhpcmw1U2s
 
 ##Models
 *User Model - will include the className of the model and will include an export property in order to extract information from it.
