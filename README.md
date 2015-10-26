@@ -21,7 +21,7 @@ https://www.draw.io/#G0BwMaxZl3OwK8OHdJdEhpcmw1U2s
 
 *Schedules Model - will include the className of the model and will include an export property in order to extract information from it.
 
-*Employers Model - will include the className of the model and will include an export property in order to extract information from it.
+*Tickets Model - will include the className of the model and will include an export property in order to extract information from it.
 
 ##APIs, Plugins, Libraries and Frameworks
 Parse, React, Bootstrap
