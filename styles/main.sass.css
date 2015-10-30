@@ -1,0 +1,35 @@
+.registerComponent .registerInput {
+  display: block;
+  margin-top: 1em; }
+
+.registerComponent .registerButton {
+  background: blue;
+  color: white; }
+
+.loginComponent .loginInput {
+  display: block;
+  margin-top: 1em; }
+
+.homePageComponent {
+  background-image: url("http://images.freeimages.com/images/thumbs/50e/ticket-1543115.jpg");
+  background-repeat: no-repeat;
+  background-size: 110%;
+  height: 50em; }
+  .homePageComponent .homePageHeader {
+    text-align: center; }
+  .homePageComponent .homePageContent {
+    text-align: center; }
+
+.leagueContainer .leagueRow {
+  text-align: center; }
+
+.navigationHeader .ul {
+  background: grey;
+  height: 100%; }
+
+.navigationHeader .navList {
+  display: inline;
+  text-decoration: none;
+  margin-left: 1em;
+  font-weight: bold;
+  color: black; }
