@@ -1,14 +1,25 @@
 .homePageComponent {
 	background-image: url('http://images.freeimages.com/images/thumbs/50e/ticket-1543115.jpg');
 	background-repeat: no-repeat;
-	background-size: 110%;
-	height: 50em;
+	background-size: 120%;
+	height: 60em;
+	padding-top: 1em;
+	
 
 	.homePageHeader {
+		margin-top: 0em;
 		text-align: center;
+		font-family: Lobster Two;
+	}
+
+	a {
+		color: #A379EE;
 	}
 
 	.homePageContent {
 		text-align: center;
+		// color: #551A8B;
+		font-family: 'Roboto Condensed', sans-serif;
+		font-weight: 900;
 	}
 }

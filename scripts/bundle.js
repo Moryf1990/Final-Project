@@ -31705,6 +31705,52 @@ module.exports = require('./lib/React');
 'use strict';
 
 var React = require('react');
+var ReactDOM = require('react-dom');
+var Backbone = require('backbone');
+
+module.exports = React.createClass({
+	displayName: 'exports',
+
+	render: function render() {
+		return React.createElement(
+			'div',
+			{ className: 'col-sm-3' },
+			React.createElement(
+				'div',
+				{ className: 'alreadyRegisteredComponent' },
+				React.createElement(
+					'div',
+					{ className: 'alreadyRegisteredContainer' },
+					React.createElement(
+						'h3',
+						{ className: 'alreadyRegisteredHeader' },
+						'Already Registered?'
+					),
+					React.createElement(
+						'h3',
+						{ className: 'alreadyRegisteredContent' },
+						'Click ',
+						React.createElement(
+							'span',
+							{ className: 'navList' },
+							React.createElement(
+								'a',
+								{ href: '#login' },
+								'HERE'
+							)
+						),
+						' to be taken back to the Login page to login and post tickets for sale.'
+					)
+				)
+			)
+		);
+	}
+});
+
+},{"backbone":1,"react":160,"react-dom":5}],162:[function(require,module,exports){
+'use strict';
+
+var React = require('react');
 var GamesComponent = require('./GamesComponent');
 var ReactDOM = require('react-dom');
 
@@ -31723,7 +31769,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./GamesComponent":162,"react":160,"react-dom":5}],162:[function(require,module,exports){
+},{"./GamesComponent":163,"react":160,"react-dom":5}],163:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -31811,23 +31857,27 @@ module.exports = React.createClass({
 
 		return React.createElement(
 			'div',
-			{ className: 'gamesComponent' },
+			{ className: 'col-sm-12' },
 			React.createElement(
-				'h1',
-				{ className: 'gamesHeader' },
-				'This is where my games will go'
-			),
-			React.createElement(
-				'h3',
-				{ className: 'gamesHeader' },
-				'Select a game to view available tickets'
-			),
-			allGames
+				'div',
+				{ className: 'gamesComponent' },
+				React.createElement(
+					'h1',
+					{ className: 'gamesHeader' },
+					'Select a game to view available tickets'
+				),
+				React.createElement(
+					'h3',
+					{ className: 'gamesContent' },
+					'Games'
+				),
+				allGames
+			)
 		);
 	}
 });
 
-},{"../models/GameModel":174,"../models/LeagueModel":175,"../models/TeamModel":176,"./GameRowComponent":161,"./LeaguesComponent":165,"./TeamRowComponent":169,"./TeamsComponent":170,"react":160}],163:[function(require,module,exports){
+},{"../models/GameModel":176,"../models/LeagueModel":177,"../models/TeamModel":178,"./GameRowComponent":162,"./LeaguesComponent":166,"./TeamRowComponent":171,"./TeamsComponent":172,"react":160}],164:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -31840,37 +31890,61 @@ module.exports = React.createClass({
 	render: function render() {
 		return React.createElement(
 			'div',
-			{ className: 'homePageComponent' },
+			{ className: 'col-sm-12' },
 			React.createElement(
-				'h1',
-				{ className: 'homePageHeader' },
-				'Welcome to Ticket Selling Heaven'
-			),
-			React.createElement(
-				'h3',
-				{ className: 'homePageContent' },
-				'Here you will find all of the tools you need to effectively sell all of your unwanted sporting tickets.'
-			),
-			React.createElement(
-				'h3',
-				{ className: 'homePageContent' },
-				' Click on the REGISTER link at the top of the page to get started,'
-			),
-			React.createElement(
-				'h3',
-				{ className: 'homePageContent' },
-				' or if you are a returning user, click the LOGIN link to post tickets or see'
-			),
-			React.createElement(
-				'h3',
-				{ className: 'homePageContent' },
-				'which of your tickets have been sold'
+				'div',
+				{ className: 'homePageComponent' },
+				React.createElement(
+					'h1',
+					{ className: 'homePageHeader' },
+					'Welcome to Ticket Selling Heaven'
+				),
+				React.createElement(
+					'h3',
+					{ className: 'homePageContent' },
+					'Here you will find all of the tools you need to effectively sell all of your unwanted sporting tickets!!!'
+				),
+				React.createElement(
+					'h3',
+					{ className: 'homePageContent' },
+					' Click on the ',
+					React.createElement(
+						'span',
+						null,
+						React.createElement(
+							'a',
+							{ href: '#register' },
+							'REGISTER'
+						)
+					),
+					' link to get started,'
+				),
+				React.createElement(
+					'h3',
+					{ className: 'homePageContent' },
+					' or if you are a returning user, click the ',
+					React.createElement(
+						'span',
+						{ className: 'navList' },
+						React.createElement(
+							'a',
+							{ href: '#login' },
+							'LOGIN'
+						)
+					),
+					' link to post tickets'
+				),
+				React.createElement(
+					'h3',
+					{ className: 'homePageContent' },
+					' or see which of your tickets have been sold.'
+				)
 			)
 		);
 	}
 });
 
-},{"backbone":1,"react":160,"react-dom":5}],164:[function(require,module,exports){
+},{"backbone":1,"react":160,"react-dom":5}],165:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -31889,7 +31963,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./LeaguesComponent":165,"react":160,"react-dom":5}],165:[function(require,module,exports){
+},{"./LeaguesComponent":166,"react":160,"react-dom":5}],166:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -31986,32 +32060,36 @@ module.exports = React.createClass({
 			// </div>
 			React.createElement(
 				'div',
-				{ className: 'leagueContainer' },
+				{ className: 'col-sm-12' },
 				React.createElement(
 					'div',
-					{ className: 'leagueRow' },
-					React.createElement(
-						'h1',
-						null,
-						'Choose Your League to View All Teams Within That League'
-					)
-				),
-				React.createElement(
-					'div',
-					null,
+					{ className: 'leaguesContainer' },
 					React.createElement(
 						'div',
-						null,
+						{ className: 'leaguesRow' },
 						React.createElement(
-							'h3',
-							null,
-							'League'
+							'h1',
+							{ className: 'leaguesHeader' },
+							'Choose Your League to View All Teams Within That League'
 						)
 					),
 					React.createElement(
 						'div',
 						null,
-						allLeagues
+						React.createElement(
+							'div',
+							null,
+							React.createElement(
+								'h3',
+								{ className: 'leaguesContent' },
+								'League'
+							)
+						),
+						React.createElement(
+							'div',
+							{ className: 'leaguesList' },
+							allLeagues
+						)
 					)
 				)
 			)
@@ -32027,7 +32105,7 @@ module.exports = React.createClass({
 // 	this.props.router.navigate('#teams/'+this.refs.thisLeague.value, {trigger: true});
 // }
 
-},{"../models/LeagueModel":175,"./LeagueRowComponent":164,"backbone":1,"react":160,"react-dom":5}],166:[function(require,module,exports){
+},{"../models/LeagueModel":177,"./LeagueRowComponent":165,"backbone":1,"react":160,"react-dom":5}],167:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -32040,24 +32118,28 @@ module.exports = React.createClass({
 	render: function render() {
 		return React.createElement(
 			'div',
-			{ className: 'loginComponent' },
+			{ className: 'col-sm-12' },
 			React.createElement(
-				'h1',
-				null,
-				'Login'
-			),
-			React.createElement('input', { className: 'loginInput', placeholder: 'Username' }),
-			React.createElement('input', { className: 'loginInput', placeholder: 'Password' }),
-			React.createElement(
-				'button',
-				{ className: 'loginButton' },
-				'Submit'
+				'div',
+				{ className: 'loginComponent' },
+				React.createElement(
+					'h1',
+					{ className: 'loginHeader' },
+					'Login'
+				),
+				React.createElement('input', { className: 'loginInput', placeholder: 'Username' }),
+				React.createElement('input', { className: 'loginInput', placeholder: 'Password' }),
+				React.createElement(
+					'button',
+					{ className: 'loginButton' },
+					'Submit'
+				)
 			)
 		);
 	}
 });
 
-},{"backbone":1,"react":160,"react-dom":5}],167:[function(require,module,exports){
+},{"backbone":1,"react":160,"react-dom":5}],168:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -32072,7 +32154,7 @@ module.exports = React.createClass({
 			{ className: 'col-sm-12' },
 			React.createElement(
 				'div',
-				{ className: 'navigationHeader' },
+				{ className: 'navigationTitle' },
 				React.createElement(
 					'ul',
 					{ className: 'ul' },
@@ -32136,7 +32218,32 @@ module.exports = React.createClass({
 	}
 });
 
-},{"backbone":1,"react":160}],168:[function(require,module,exports){
+},{"backbone":1,"react":160}],169:[function(require,module,exports){
+'use strict';
+
+var React = require('react');
+var Backbone = require('backbone');
+var RegistrationComponent = require('./RegistrationComponent');
+var AlreadyRegisteredComponent = require('./AlreadyRegisteredComponent');
+
+module.exports = React.createClass({
+	displayName: 'exports',
+
+	render: function render() {
+		return React.createElement(
+			'div',
+			{ className: 'registrationContainer' },
+			React.createElement(
+				'div',
+				{ className: 'registrationRow' },
+				React.createElement(RegistrationComponent, null),
+				React.createElement(AlreadyRegisteredComponent, null)
+			)
+		);
+	}
+});
+
+},{"./AlreadyRegisteredComponent":161,"./RegistrationComponent":170,"backbone":1,"react":160}],170:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -32149,27 +32256,31 @@ module.exports = React.createClass({
 	render: function render() {
 		return React.createElement(
 			'div',
-			{ className: 'registerComponent' },
+			{ className: 'col-sm-9' },
 			React.createElement(
-				'h1',
-				null,
-				'Register Here'
-			),
-			React.createElement('input', { className: 'registerInput', placeholder: 'First Name' }),
-			React.createElement('input', { className: 'registerInput', placeholder: 'Last Name' }),
-			React.createElement('input', { className: 'registerInput', placeholder: 'Email' }),
-			React.createElement('input', { className: 'registerInput', placeholder: 'Username' }),
-			React.createElement('input', { className: 'registerInput', placeholder: 'Password' }),
-			React.createElement(
-				'button',
-				{ className: 'registerButton' },
-				'Register'
+				'div',
+				{ className: 'registrationComponent' },
+				React.createElement(
+					'h1',
+					{ className: 'registrationHeader' },
+					'Register Here'
+				),
+				React.createElement('input', { className: 'registrationInput', placeholder: 'First Name' }),
+				React.createElement('input', { className: 'registrationInput', placeholder: 'Last Name' }),
+				React.createElement('input', { className: 'registrationInput', placeholder: 'Email' }),
+				React.createElement('input', { className: 'registrationInput', placeholder: 'Username' }),
+				React.createElement('input', { className: 'registrationInput', placeholder: 'Password' }),
+				React.createElement(
+					'button',
+					{ className: 'registrationButton' },
+					'Register'
+				)
 			)
 		);
 	}
 });
 
-},{"backbone":1,"react":160,"react-dom":5}],169:[function(require,module,exports){
+},{"backbone":1,"react":160,"react-dom":5}],171:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -32188,7 +32299,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./TeamsComponent":170,"react":160,"react-dom":5}],170:[function(require,module,exports){
+},{"./TeamsComponent":172,"react":160,"react-dom":5}],172:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -32228,23 +32339,31 @@ module.exports = React.createClass({
 		});
 		return React.createElement(
 			'div',
-			{ className: 'teamsComponent' },
+			{ className: 'col-sm-12' },
 			React.createElement(
-				'h1',
-				{ className: 'teamsHeader' },
-				'This is where my teams will go'
-			),
-			React.createElement(
-				'h3',
-				{ className: 'teamsHeader' },
-				'Select your team to view their schedule'
-			),
-			allTeams
+				'div',
+				{ className: 'teamsComponent' },
+				React.createElement(
+					'h1',
+					{ className: 'teamsHeader' },
+					'Select your team to view their schedule'
+				),
+				React.createElement(
+					'h3',
+					{ className: 'teamsContent' },
+					'Team Name'
+				),
+				React.createElement(
+					'div',
+					{ className: 'teamsList' },
+					allTeams
+				)
+			)
 		);
 	}
 });
 
-},{"../models/LeagueModel":175,"../models/TeamModel":176,"./GamesComponent":162,"./LeaguesComponent":165,"./TeamRowComponent":169,"react":160}],171:[function(require,module,exports){
+},{"../models/LeagueModel":177,"../models/TeamModel":178,"./GamesComponent":163,"./LeaguesComponent":166,"./TeamRowComponent":171,"react":160}],173:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -32264,7 +32383,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./TicketsComponent":172,"react":160,"react-dom":5}],172:[function(require,module,exports){
+},{"./TicketsComponent":174,"react":160,"react-dom":5}],174:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -32278,81 +32397,54 @@ var LeagueModel = require('../models/LeagueModel');
 var GameModel = require('../models/GameModel');
 var TicketModel = require('../models/TicketModel');
 
-module.exports = React.createClass({
-	displayName: 'exports',
+// module.exports = React.createClass({
+// 	getInitialState: function() {
+// 		return {'tickets': []}
+// 	},
 
-	getInitialState: function getInitialState() {
-		return { 'tickets': [] };
-	},
+// 	componentWillMount: function(e) {
+// 		var game = new GameModel({objectId: this.props.gameId});
+// 		var query = new Parse.Query(TicketModel).include('games');
+// 		query.equalTo('game', game)
+// 		// var secondTicketQuery = new Parse.Query(TicketModel).include('games');
+// 		// secondTicketQuery.equalTo('price', game)
+// 		query.find().then(
+// 			(tickets) => {
+// 				this.setState({tickets: tickets})
+// 			});
+// 		// var mainQuery = Parse.Query.query
+// 		// mainQuery.include('seat');
+// 		// mainquery.include('price');
+// 		// mainQuery.find().then(
+// 		// 	(tickets) => {
+// 		// 		this.setState({tickets: tickets});
+// 		// 	}
+// 		// );
+// 	},
 
-	componentWillMount: function componentWillMount(e) {
-		var _this = this;
+// 	render: function() {
+// 		var myState = this.state.tickets;
+// 		var allTickets = myState.map(function(ticket) {
+// 			var prefix = '#games/';
+// 			var url = prefix+ticket.id;
+// 			var gameSeat = `${ticket.get('seat')}`;
+// 			var seatPrice = `${ticket.get('price')}`;
+// 			return <div>
+// 			<a href = {url}> key = {ticket.id} <span> {`${gameSeat}  ${seatPrice}`} </span> </a>
+// 			</div>
+// 		});
 
-		var game = new GameModel({ objectId: this.props.gameId });
-		var query = new Parse.Query(TicketModel).include('games');
-		query.equalTo('game', game);
-		// var secondTicketQuery = new Parse.Query(TicketModel).include('games');
-		// secondTicketQuery.equalTo('price', game)
-		query.find().then(function (tickets) {
-			_this.setState({ tickets: tickets });
-		});
-		// var mainQuery = Parse.Query.query
-		// mainQuery.include('seat');
-		// mainquery.include('price');
-		// mainQuery.find().then(
-		// 	(tickets) => {
-		// 		this.setState({tickets: tickets});
-		// 	}
-		// );
-	},
+// 	return(
+// 			<div className = "gamesComponent">
+// 				<h1 className = "gamesHeader">This is where my games will go</h1>
+// 				<h3 className = "gamesHeader">Select a game to view available tickets</h3>
+// 				{allTickets}
+// 			</div>
+// 		);
+// 	},
+// });
 
-	render: function render() {
-		var myState = this.state.tickets;
-		var allTickets = myState.map(function (ticket) {
-			var prefix = '#games/';
-			var url = prefix + ticket.id;
-			var gameSeat = '' + ticket.get('seat');
-			var seatPrice = '' + ticket.get('price');
-			return React.createElement(
-				'div',
-				null,
-				React.createElement(
-					'a',
-					{ href: url },
-					' key = ',
-					ticket.id,
-					' ',
-					React.createElement(
-						'span',
-						null,
-						' ',
-						gameSeat + '  ' + seatPrice,
-						' '
-					),
-					' '
-				)
-			);
-		});
-
-		return React.createElement(
-			'div',
-			{ className: 'gamesComponent' },
-			React.createElement(
-				'h1',
-				{ className: 'gamesHeader' },
-				'This is where my games will go'
-			),
-			React.createElement(
-				'h3',
-				{ className: 'gamesHeader' },
-				'Select a game to view available tickets'
-			),
-			allTickets
-		);
-	}
-});
-
-},{"../models/GameModel":174,"../models/LeagueModel":175,"../models/TeamModel":176,"../models/TicketModel":177,"./GameRowComponent":161,"./LeaguesComponent":165,"./TeamRowComponent":169,"./TeamsComponent":170,"./TicketRowComponent":171,"react":160}],173:[function(require,module,exports){
+},{"../models/GameModel":176,"../models/LeagueModel":177,"../models/TeamModel":178,"../models/TicketModel":179,"./GameRowComponent":162,"./LeaguesComponent":166,"./TeamRowComponent":171,"./TeamsComponent":172,"./TicketRowComponent":173,"react":160}],175:[function(require,module,exports){
 'use strict';
 var React = require('react');
 var ReactDOM = require('react-dom');
@@ -32403,10 +32495,10 @@ var Router = Backbone.Router.extend({
 	},
 	games: function games(teamId) {
 		ReactDOM.render(React.createElement(GamesComponent, { teamId: teamId }), app);
-	},
-	tickets: function tickets(gameId) {
-		ReactDOM.render(React.createElement(TicketsComponent, { gameId: gameId }), app);
 	}
+	// tickets: function(gameId) {
+	// 	ReactDOM.render(<TicketsComponent gameId = {gameId} />, app);
+	// }
 });
 
 var r = new Router();
@@ -32414,35 +32506,35 @@ Backbone.history.start();
 
 ReactDOM.render(React.createElement(NavigationComponent, { router: r }), document.getElementById('nav'));
 
-},{"./components/GamesComponent":162,"./components/HomePageComponent":163,"./components/LeaguesComponent":165,"./components/LoginComponent":166,"./components/NavigationComponent":167,"./components/RegisterComponent":168,"./components/TeamsComponent":170,"./components/TicketsComponent":172,"backbone":1,"jquery":4,"react":160,"react-dom":5}],174:[function(require,module,exports){
+},{"./components/GamesComponent":163,"./components/HomePageComponent":164,"./components/LeaguesComponent":166,"./components/LoginComponent":167,"./components/NavigationComponent":168,"./components/RegisterComponent":169,"./components/TeamsComponent":172,"./components/TicketsComponent":174,"backbone":1,"jquery":4,"react":160,"react-dom":5}],176:[function(require,module,exports){
 'use strict';
 
 module.exports = Parse.Object.extend({
 	className: 'Game'
 });
 
-},{}],175:[function(require,module,exports){
+},{}],177:[function(require,module,exports){
 'use strict';
 
 module.exports = Parse.Object.extend({
 	className: 'League'
 });
 
-},{}],176:[function(require,module,exports){
+},{}],178:[function(require,module,exports){
 'use strict';
 
 module.exports = Parse.Object.extend({
 	className: 'Team'
 });
 
-},{}],177:[function(require,module,exports){
+},{}],179:[function(require,module,exports){
 'use strict';
 
 module.exports = Parse.Object.extend({
 	className: 'Tickets'
 });
 
-},{}]},{},[173])
+},{}]},{},[175])
 
 
 //# sourceMappingURL=bundle.js.map

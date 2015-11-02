@@ -65,10 +65,12 @@ module.exports = React.createClass({
 
 
 		return(
-			<div className = "gamesComponent">
-				<h1 className = "gamesHeader">This is where my games will go</h1>
-				<h3 className = "gamesHeader">Select a game to view available tickets</h3>
-				{allGames}
+			<div className = "col-sm-12">
+				<div className = "gamesComponent">
+					<h1 className = "gamesHeader">Select a game to view available tickets</h1>
+					<h3 className = "gamesContent">Games</h3>
+					{allGames}
+				</div>
 			</div>
 		);
 	},

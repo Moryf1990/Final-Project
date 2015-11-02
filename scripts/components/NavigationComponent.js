@@ -5,7 +5,7 @@ module.exports = React.createClass({
 	render: function() {
 		return (
 			<div className = "col-sm-12">
-				<div className = "navigationHeader">
+				<div className = "navigationTitle">
 					<ul className = "ul">
 						<li className = "navList"><a href = "#">HOME</a></li>
 						<li className = "navList"><a href = "#register">REGISTER</a></li>

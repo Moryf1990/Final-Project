@@ -1,18 +1,18 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-var Backbone = require('backbone');
+var React=require('react');
+var Backbone=require('backbone');
+var RegistrationComponent=require('./RegistrationComponent');
+var AlreadyRegisteredComponent=require('./AlreadyRegisteredComponent');
 
-module.exports = React.createClass({
+module.exports=React.createClass({
 	render: function() {
-		return(
-			<div className = "registerComponent">
-				<h1>Register Here</h1>
-				<input className = "registerInput" placeholder = "First Name"></input>
-				<input className = "registerInput" placeholder = "Last Name"></input>
-				<input className = "registerInput" placeholder = "Email"></input>
-				<input className = "registerInput" placeholder = "Username"></input>
-				<input className = "registerInput" placeholder = "Password"></input>
-				<button className = "registerButton">Register</button>
+		return (
+			
+			<div className="registrationContainer">
+
+				<div className="registrationRow">
+					<RegistrationComponent />
+					<AlreadyRegisteredComponent />							
+				</div>		
 			</div>
 		)
 	}

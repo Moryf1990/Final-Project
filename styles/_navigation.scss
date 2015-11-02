@@ -1,15 +1,23 @@
-.navigationHeader {
+.navigationTitle {
 
 	.ul {
-	  background: grey;
+	  background: teal;
 	  height: 100%;
+	  margin-bottom: 0em;
+	  padding-top: 0.5em;
+	  padding-bottom: 0.5em;
 	}
 
-	.navList {
+    .navList {
 	  display: inline;
-	  text-decoration: none;
 	  margin-left: 1em;
 	  font-weight: bold;
-	  color: black;
+	  font-family: 'Roboto Condensed', sans-serif;
+	}
+
+	a {
+	text-decoration:none; 
+	color: white;
 	}
 }
+

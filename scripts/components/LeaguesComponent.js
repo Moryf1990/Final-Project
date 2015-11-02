@@ -83,17 +83,19 @@ module.exports = React.createClass({
 			// 	</table>
 			// 	</div>
 			// </div>
-			<div className = "leagueContainer">
-				<div className = "leagueRow">
-				<h1>Choose Your League to View All Teams Within That League</h1>
-			</div>
-			<div>
-				<div>
-					<h3>League</h3>
+			<div className = "col-sm-12">
+				<div className = "leaguesContainer">
+					<div className = "leaguesRow">
+					<h1 className = "leaguesHeader">Choose Your League to View All Teams Within That League</h1>
 				</div>
 				<div>
-				{allLeagues}
-				</div>
+					<div>
+						<h3 className = "leaguesContent">League</h3>
+					</div>
+					<div className = "leaguesList">
+					{allLeagues}
+					</div>
+					</div>
 				</div>
 			</div>
 		);

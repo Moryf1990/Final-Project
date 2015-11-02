@@ -28,10 +28,14 @@ module.exports = React.createClass({
 			return <a href = {url} key = {team.id}><TeamRowComponent team={team}/></a>
 		});
 		return(
-			<div className = "teamsComponent">
-				<h1 className = "teamsHeader">This is where my teams will go</h1>
-				<h3 className = "teamsHeader">Select your team to view their schedule</h3>
-				{allTeams}
+			<div className = "col-sm-12">
+				<div className = "teamsComponent">
+					<h1 className = "teamsHeader">Select your team to view their schedule</h1>
+					<h3 className = "teamsContent">Team Name</h3>
+					<div className = "teamsList">
+					{allTeams}
+					</div>
+				</div>
 			</div>
 		);
 	},

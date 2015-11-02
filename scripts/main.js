@@ -48,10 +48,10 @@ var Router = Backbone.Router.extend({
 	},
 	games: function(teamId) {
 		ReactDOM.render(<GamesComponent teamId = {teamId} />, app);
-	},
-	tickets: function(gameId) {
-		ReactDOM.render(<TicketsComponent gameId = {gameId} />, app);
 	}
+	// tickets: function(gameId) {
+	// 	ReactDOM.render(<TicketsComponent gameId = {gameId} />, app);
+	// }
 });
 
 var r = new Router();
