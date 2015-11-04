@@ -31791,14 +31791,15 @@ module.exports = React.createClass({
 		var _this = this;
 
 		var team = new TeamModel({ objectId: this.props.teamId });
-		var firstTeamQuery = new Parse.Query(GameModel).include('teams');
+		var firstTeamQuery = new Parse.Query(GameModel);
 		firstTeamQuery.equalTo('team1', team);
-		var secondTeamQuery = new Parse.Query(GameModel).include('teams');
+		var secondTeamQuery = new Parse.Query(GameModel);
 		secondTeamQuery.equalTo('team2', team);
-		var startDateQuery = new Parse.Query(GameModel);
-		startDateQuery.find().then(function (games) {
-			_this.setState({ games: games });
-		});
+		// var startDateQuery = new Parse.Query(GameModel);
+		// startDateQuery.find().then(
+		// 	(games) => {
+		// 		this.setState({games: games})
+		// });
 
 		var mainQuery = Parse.Query.or(firstTeamQuery, secondTeamQuery);
 		mainQuery.include('team1');
@@ -31823,7 +31824,7 @@ module.exports = React.createClass({
 		var myState = this.state.games;
 		//var gameDate = this.state.games.map.startDate;
 		var allGames = myState.map(function (game, index) {
-			var prefix = '#games/';
+			var prefix = '#tickets/';
 			var url = prefix + game.id;
 			var timeStart = game.get('startDate').getHours() + ':' + game.get('startDate').getMinutes();
 			var location = '' + game.get('location');
@@ -31835,16 +31836,8 @@ module.exports = React.createClass({
 					'a',
 					{ href: url },
 					' ',
-					game.get('team1').get('teamName')
-				),
-				React.createElement(
-					'span',
-					null,
-					' vs '
-				),
-				React.createElement(
-					'a',
-					{ href: url },
+					game.get('team1').get('teamName'),
+					' vs ',
 					game.get('team2').get('teamName')
 				),
 				React.createElement(
@@ -31871,13 +31864,17 @@ module.exports = React.createClass({
 					{ className: 'gamesContent' },
 					'Games'
 				),
-				allGames
+				React.createElement(
+					'div',
+					{ className: 'gamesList' },
+					allGames
+				)
 			)
 		);
 	}
 });
 
-},{"../models/GameModel":176,"../models/LeagueModel":177,"../models/TeamModel":178,"./GameRowComponent":162,"./LeaguesComponent":166,"./TeamRowComponent":171,"./TeamsComponent":172,"react":160}],164:[function(require,module,exports){
+},{"../models/GameModel":177,"../models/LeagueModel":178,"../models/TeamModel":179,"./GameRowComponent":162,"./LeaguesComponent":166,"./TeamRowComponent":172,"./TeamsComponent":173,"react":160}],164:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -32105,7 +32102,7 @@ module.exports = React.createClass({
 // 	this.props.router.navigate('#teams/'+this.refs.thisLeague.value, {trigger: true});
 // }
 
-},{"../models/LeagueModel":177,"./LeagueRowComponent":165,"backbone":1,"react":160,"react-dom":5}],167:[function(require,module,exports){
+},{"../models/LeagueModel":178,"./LeagueRowComponent":165,"backbone":1,"react":160,"react-dom":5}],167:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -32284,6 +32281,202 @@ module.exports = React.createClass({
 'use strict';
 
 var React = require('react');
+var TicketModel = require('../models/TicketModel');
+var TeamModel = require('../models/TeamModel');
+var LeagueModel = require('../models/LeagueModel');
+var GameModel = require('../models/GameModel');
+var TicketModel = require('../models/TicketModel');
+
+module.exports = React.createClass({
+	displayName: 'exports',
+
+	getInitialState: function getInitialState() {
+		return {
+			error: null,
+			teams: [],
+			games: []
+		};
+	},
+
+	onLeagueChange: function onLeagueChange(e) {
+		var _this = this;
+
+		e.preventDefault();
+		console.log(this.refs.league.value);
+		var league = new LeagueModel({ objectId: this.refs.league.value });
+		var query = new Parse.Query(TeamModel).include('leagues');
+		query.equalTo('league', league);
+		query.find().then(function (teams) {
+			// var teamsByLeague = _.groupBy(teams) {
+			// 	return team.get('leagueId')
+			// }
+			_this.setState({ teams: teams });
+			console.log(teams);
+		});
+	},
+
+	onTeamChange: function onTeamChange(e) {
+		var _this2 = this;
+
+		e.preventDefault();
+		console.log(this.refs.team.value);
+		var team = new TeamModel({ objectId: this.refs.team.value });
+		var firstTeamQuery = new Parse.Query(GameModel);
+		firstTeamQuery.equalTo('team1', team);
+		var secondTeamQuery = new Parse.Query(GameModel);
+		secondTeamQuery.equalTo('team2', team);
+
+		var mainQuery = Parse.Query.or(firstTeamQuery, secondTeamQuery);
+		mainQuery.include('team1');
+		mainQuery.include('team2');
+		mainQuery.greaterThanOrEqualTo('startDate', new Date());
+		mainQuery.find().then(function (games) {
+			_this2.setState({ games: games });
+		});
+	},
+
+	render: function render() {
+		// // e.preventDefault();
+		// // var query = new Parse.Query(TeamModel).indlude('leagues');
+		// // var teamName = Parse.Object.extend('teamName');
+		var errorElement = null;
+		if (this.state.error) {
+			errorElement = React.createElement(
+				'p',
+				{ className: 'red' },
+				this.state.error
+			);
+		}
+
+		var allTeams = this.state.teams.map(function (team, index) {
+			return React.createElement(
+				'option',
+				{ value: team.id, key: index },
+				team.get('teamName')
+			);
+		});
+
+		var allGames = this.state.games.map(function (game, index) {
+			return React.createElement(
+				'option',
+				{ key: index },
+				game.get('team1').get('teamName'),
+				'  vs ',
+				game.get('team2').get('teamName'),
+				' on ',
+				game.get('startDate').toDateString()
+			);
+		});
+
+		return React.createElement(
+			'div',
+			{ className: 'col-sm-12', onSubmit: this.onPostTickets },
+			React.createElement(
+				'div',
+				{ className: 'sellTicketsComponent' },
+				React.createElement(
+					'h1',
+					{ className: 'sellTicketsHeader' },
+					'Sell Tickets Here'
+				),
+				errorElement,
+				React.createElement(
+					'div',
+					null,
+					React.createElement(
+						'select',
+						{ className: 'sellTicketsSelect1', ref: 'league', onChange: this.onLeagueChange },
+						React.createElement(
+							'option',
+							{ value: '' },
+							'Choose League'
+						),
+						React.createElement(
+							'option',
+							{ value: '1spFvfUk7l' },
+							'NFL'
+						),
+						React.createElement(
+							'option',
+							{ value: 'ZfIRzEVu5Z' },
+							'NBA'
+						),
+						React.createElement(
+							'option',
+							{ value: 'BBi7kCNTjT' },
+							'MLB'
+						),
+						React.createElement(
+							'option',
+							{ value: 'ohLqUQbBl2' },
+							'NHL'
+						),
+						React.createElement(
+							'option',
+							{ value: 'YIjNdEB6vh' },
+							'MLS'
+						)
+					)
+				),
+				React.createElement(
+					'div',
+					null,
+					React.createElement(
+						'select',
+						{ className: 'sellTicketsSelect2', ref: 'team', onChange: this.onTeamChange },
+						React.createElement(
+							'option',
+							{ value: '' },
+							'Choose Team'
+						),
+						allTeams
+					)
+				),
+				React.createElement(
+					'div',
+					null,
+					React.createElement(
+						'select',
+						{ className: 'sellTicketsSelect3' },
+						React.createElement(
+							'option',
+							{ value: '' },
+							'Choose Game'
+						),
+						allGames
+					)
+				),
+				React.createElement(
+					'div',
+					null,
+					React.createElement('input', { className: 'seatInput', placeholder: 'seat', ref: 'seat' }),
+					React.createElement('input', { className: 'priceInput', placeholder: 'price', ref: 'price' })
+				),
+				React.createElement(
+					'div',
+					null,
+					React.createElement(
+						'button',
+						{ className: 'sellTicketsButton' },
+						'Post Tickets For Sale'
+					)
+				)
+			)
+		);
+	},
+	onPostTickets: function onPostTickets(e) {
+		e.preventDefault();
+		var ticket = new TicketModel();
+		ticket.set('seat', this.refs.seat.getDOMNode().value);
+		ticket.set('price', this.refs.price.getDOMNode().value);
+		ticket.save();
+	}
+});
+
+},{"../models/GameModel":177,"../models/LeagueModel":178,"../models/TeamModel":179,"../models/TicketModel":180,"react":160}],172:[function(require,module,exports){
+'use strict';
+
+var React = require('react');
 var TeamsComponent = require('./TeamsComponent');
 var ReactDOM = require('react-dom');
 
@@ -32299,7 +32492,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./TeamsComponent":172,"react":160,"react-dom":5}],172:[function(require,module,exports){
+},{"./TeamsComponent":173,"react":160,"react-dom":5}],173:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -32363,7 +32556,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"../models/LeagueModel":177,"../models/TeamModel":178,"./GamesComponent":163,"./LeaguesComponent":166,"./TeamRowComponent":171,"react":160}],173:[function(require,module,exports){
+},{"../models/LeagueModel":178,"../models/TeamModel":179,"./GamesComponent":163,"./LeaguesComponent":166,"./TeamRowComponent":172,"react":160}],174:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -32383,7 +32576,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./TicketsComponent":174,"react":160,"react-dom":5}],174:[function(require,module,exports){
+},{"./TicketsComponent":175,"react":160,"react-dom":5}],175:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -32397,54 +32590,93 @@ var LeagueModel = require('../models/LeagueModel');
 var GameModel = require('../models/GameModel');
 var TicketModel = require('../models/TicketModel');
 
-// module.exports = React.createClass({
-// 	getInitialState: function() {
-// 		return {'tickets': []}
-// 	},
+module.exports = React.createClass({
+	displayName: 'exports',
 
-// 	componentWillMount: function(e) {
-// 		var game = new GameModel({objectId: this.props.gameId});
-// 		var query = new Parse.Query(TicketModel).include('games');
-// 		query.equalTo('game', game)
-// 		// var secondTicketQuery = new Parse.Query(TicketModel).include('games');
-// 		// secondTicketQuery.equalTo('price', game)
-// 		query.find().then(
-// 			(tickets) => {
-// 				this.setState({tickets: tickets})
-// 			});
-// 		// var mainQuery = Parse.Query.query
-// 		// mainQuery.include('seat');
-// 		// mainquery.include('price');
-// 		// mainQuery.find().then(
-// 		// 	(tickets) => {
-// 		// 		this.setState({tickets: tickets});
-// 		// 	}
-// 		// );
-// 	},
+	getInitialState: function getInitialState() {
+		return { tickets: [] };
+	},
 
-// 	render: function() {
-// 		var myState = this.state.tickets;
-// 		var allTickets = myState.map(function(ticket) {
-// 			var prefix = '#games/';
-// 			var url = prefix+ticket.id;
-// 			var gameSeat = `${ticket.get('seat')}`;
-// 			var seatPrice = `${ticket.get('price')}`;
-// 			return <div>
-// 			<a href = {url}> key = {ticket.id} <span> {`${gameSeat}  ${seatPrice}`} </span> </a>
-// 			</div>
-// 		});
+	componentWillMount: function componentWillMount(e) {
+		var _this = this;
 
-// 	return(
-// 			<div className = "gamesComponent">
-// 				<h1 className = "gamesHeader">This is where my games will go</h1>
-// 				<h3 className = "gamesHeader">Select a game to view available tickets</h3>
-// 				{allTickets}
-// 			</div>
-// 		);
-// 	},
-// });
+		var game = new GameModel({ objectId: this.props.gameId });
+		var firstGameQuery = new Parse.Query(TicketModel);
+		firstGameQuery.equalTo('game', game);
+		// var secondGameQuery = new Parse.Query(TicketModel);
+		// secondGameQuery.equalTo('price', game)
 
-},{"../models/GameModel":176,"../models/LeagueModel":177,"../models/TeamModel":178,"../models/TicketModel":179,"./GameRowComponent":162,"./LeaguesComponent":166,"./TeamRowComponent":171,"./TeamsComponent":172,"./TicketRowComponent":173,"react":160}],175:[function(require,module,exports){
+		// var mainQuery = Parse.Query(firstGameQuery);
+		// mainQuery.include('game');
+		// mainQuery.include('price');
+		firstGameQuery.find().then(function (tickets) {
+			console.log(tickets);
+			_this.setState({ tickets: tickets });
+		});
+		// query.equalTo('game', game)
+		// query.find().then(
+		// 	(tickets) => {
+		// 	this.setState({tickets: tickets})
+		// }
+		// )
+	},
+
+	render: function render() {
+		var myState = this.state.tickets;
+		var allTickets = myState.map(function (ticket, index) {
+			var prefix = '#games/';
+			var url = prefix + ticket.id;
+			var seat = '' + ticket.get('seat');
+			var price = '' + ticket.get('price');
+			return React.createElement(
+				'div',
+				{ key: index },
+				React.createElement(
+					'a',
+					{ href: url },
+					' ',
+					React.createElement(
+						'span',
+						null,
+						seat + ', $' + price,
+						' '
+					),
+					' '
+				)
+			);
+		});
+		// var allTickets = this.state.tickets.map(function(ticket) {
+		// 	var prefix = '#games/';
+		// 	var url = prefix+ticket.id;
+		// 	return <a href = {url} key = {ticket.id}><TicketRowComponent ticket={ticket}/></a>
+		// });
+		return React.createElement(
+			'div',
+			{ className: 'col-sm-12' },
+			React.createElement(
+				'div',
+				{ className: 'ticketsComponent' },
+				React.createElement(
+					'h1',
+					{ className: 'ticketsHeader' },
+					'Click on Tickets to purchase them'
+				),
+				React.createElement(
+					'h3',
+					{ className: 'ticketsContent' },
+					'Available Tickets'
+				),
+				React.createElement(
+					'div',
+					{ className: 'ticketsList' },
+					allTickets
+				)
+			)
+		);
+	}
+});
+
+},{"../models/GameModel":177,"../models/LeagueModel":178,"../models/TeamModel":179,"../models/TicketModel":180,"./GameRowComponent":162,"./LeaguesComponent":166,"./TeamRowComponent":172,"./TeamsComponent":173,"./TicketRowComponent":174,"react":160}],176:[function(require,module,exports){
 'use strict';
 var React = require('react');
 var ReactDOM = require('react-dom');
@@ -32462,6 +32694,7 @@ var LeaguesComponent = require('./components/LeaguesComponent');
 var TeamsComponent = require('./components/TeamsComponent');
 var GamesComponent = require('./components/GamesComponent');
 var TicketsComponent = require('./components/TicketsComponent');
+var SellTicketsComponent = require('./components/SellTicketsComponent');
 
 var app = document.getElementById('app');
 
@@ -32495,10 +32728,13 @@ var Router = Backbone.Router.extend({
 	},
 	games: function games(teamId) {
 		ReactDOM.render(React.createElement(GamesComponent, { teamId: teamId }), app);
+	},
+	tickets: function tickets(gameId) {
+		ReactDOM.render(React.createElement(TicketsComponent, { gameId: gameId }), app);
+	},
+	sellTickets: function sellTickets() {
+		ReactDOM.render(React.createElement(SellTicketsComponent, null), app);
 	}
-	// tickets: function(gameId) {
-	// 	ReactDOM.render(<TicketsComponent gameId = {gameId} />, app);
-	// }
 });
 
 var r = new Router();
@@ -32506,35 +32742,35 @@ Backbone.history.start();
 
 ReactDOM.render(React.createElement(NavigationComponent, { router: r }), document.getElementById('nav'));
 
-},{"./components/GamesComponent":163,"./components/HomePageComponent":164,"./components/LeaguesComponent":166,"./components/LoginComponent":167,"./components/NavigationComponent":168,"./components/RegisterComponent":169,"./components/TeamsComponent":172,"./components/TicketsComponent":174,"backbone":1,"jquery":4,"react":160,"react-dom":5}],176:[function(require,module,exports){
+},{"./components/GamesComponent":163,"./components/HomePageComponent":164,"./components/LeaguesComponent":166,"./components/LoginComponent":167,"./components/NavigationComponent":168,"./components/RegisterComponent":169,"./components/SellTicketsComponent":171,"./components/TeamsComponent":173,"./components/TicketsComponent":175,"backbone":1,"jquery":4,"react":160,"react-dom":5}],177:[function(require,module,exports){
 'use strict';
 
 module.exports = Parse.Object.extend({
 	className: 'Game'
 });
 
-},{}],177:[function(require,module,exports){
+},{}],178:[function(require,module,exports){
 'use strict';
 
 module.exports = Parse.Object.extend({
 	className: 'League'
 });
 
-},{}],178:[function(require,module,exports){
+},{}],179:[function(require,module,exports){
 'use strict';
 
 module.exports = Parse.Object.extend({
 	className: 'Team'
 });
 
-},{}],179:[function(require,module,exports){
+},{}],180:[function(require,module,exports){
 'use strict';
 
 module.exports = Parse.Object.extend({
 	className: 'Tickets'
 });
 
-},{}]},{},[175])
+},{}]},{},[176])
 
 
 //# sourceMappingURL=bundle.js.map

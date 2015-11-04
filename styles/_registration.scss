@@ -1,7 +1,12 @@
-.registrationComponent{
-	background: #E7E09A;
-	height: 50em;
-	padding-top: 1em;
+.col-sm-9 {
+	padding-left: 0em;
+	padding-right: 0em;	
+
+	.registrationComponent{
+		background: #E7E09A;
+		height: 50em;
+		padding-top: 1em;
+	}
 
 	.registrationInput {
 		display: block;

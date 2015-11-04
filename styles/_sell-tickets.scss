@@ -1,0 +1,62 @@
+.col-sm-12 {
+		padding-left: 0em;
+		padding-right: 0em;
+	
+
+	.sellTicketsComponent {
+		background: #E7E09A;
+		height: 50em;
+		padding-top: 1em;
+	}
+
+	.sellTicketsSelect1 {
+		width: 80%;
+		margin-left: 2em;
+	}
+
+	.sellTicketsSelect2 {
+		width: 80%;
+		margin-left: 2em;
+		margin-top: 2em;
+	}
+
+	.sellTicketsSelect3 {
+		width: 80%;
+		margin-left: 2em;
+		margin-top: 2em;
+	}
+
+	.sellTicketsHeader {
+		font-family: Lobster Two;
+		// text-align: center;
+		margin-left: 33%;
+	}
+
+	.seatInput {
+		margin-left: 2em;
+		margin-top: 2em;
+		width: 37.5%;
+		height: 2em;
+		border: 1px solid teal;
+	}
+
+	.priceInput {
+		margin-left: 4em;
+		margin-top: 2em;
+		width: 37.5%;
+		height: 2em;
+		border: 1px solid teal;
+	}
+
+	.sellTicketsButton {
+		margin-top: 2em;
+		margin-left: 36%;
+		background: teal;
+		border: none;
+		color: white;
+		height: 5em;
+		width: 10em;
+		-webkit-border-radius: 10px;
+	    font-family: 'Roboto Condensed', sans-serif;
+	}
+}
