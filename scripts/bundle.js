@@ -31874,7 +31874,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"../models/GameModel":177,"../models/LeagueModel":178,"../models/TeamModel":179,"./GameRowComponent":162,"./LeaguesComponent":166,"./TeamRowComponent":172,"./TeamsComponent":173,"react":160}],164:[function(require,module,exports){
+},{"../models/GameModel":178,"../models/LeagueModel":179,"../models/TeamModel":180,"./GameRowComponent":162,"./LeaguesComponent":166,"./TeamRowComponent":172,"./TeamsComponent":173,"react":160}],164:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -32102,7 +32102,7 @@ module.exports = React.createClass({
 // 	this.props.router.navigate('#teams/'+this.refs.thisLeague.value, {trigger: true});
 // }
 
-},{"../models/LeagueModel":178,"./LeagueRowComponent":165,"backbone":1,"react":160,"react-dom":5}],167:[function(require,module,exports){
+},{"../models/LeagueModel":179,"./LeagueRowComponent":165,"backbone":1,"react":160,"react-dom":5}],167:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -32112,7 +32112,18 @@ var ReactDOM = require('react-dom');
 module.exports = React.createClass({
 	displayName: 'exports',
 
+	getInitialState: function getInitialState() {
+		return { error: null };
+	},
 	render: function render() {
+		var errorElement = null;
+		if (this.state.error) {
+			errorElement = React.createElement(
+				'p',
+				{ className: 'red' },
+				this.state.error
+			);
+		}
 		return React.createElement(
 			'div',
 			{ className: 'col-sm-12' },
@@ -32120,19 +32131,54 @@ module.exports = React.createClass({
 				'div',
 				{ className: 'loginComponent' },
 				React.createElement(
-					'h1',
-					{ className: 'loginHeader' },
-					'Login'
-				),
-				React.createElement('input', { className: 'loginInput', placeholder: 'Username' }),
-				React.createElement('input', { className: 'loginInput', placeholder: 'Password' }),
-				React.createElement(
-					'button',
-					{ className: 'loginButton' },
-					'Submit'
+					'form',
+					{ onSubmit: this.onLogin },
+					React.createElement(
+						'h1',
+						{ className: 'loginHeader' },
+						'Login'
+					),
+					errorElement,
+					React.createElement('input', { className: 'loginInput', ref: 'username', placeholder: 'Username' }),
+					React.createElement('input', { type: 'password', className: 'loginInput', ref: 'password', placeholder: 'Password' }),
+					React.createElement(
+						'button',
+						{ className: 'loginButton' },
+						'Submit'
+					)
 				)
 			)
 		);
+	},
+	onLogin: function onLogin(e) {
+		var _this = this;
+
+		e.preventDefault();
+		// var user = new Parse.User();
+		Parse.User.logIn(this.refs.username.value, this.refs.password.value, {
+			success: function success(u) {
+				_this.props.router.navigate('sellTickets', { trigger: true });
+			},
+			error: function error(u, _error) {
+				_this.setState({
+					error: _error.message
+				});
+			}
+		});
+		// 	e.preventDefault();
+		// 	Parse.User.logIn(
+		// 		this.refs.username.value,
+		// 		this.refs.password.value,
+		// 	    {
+		// 	    	success: (u) => {
+		// 	    		this.props.router.navigate('sellTickets', {trigger: true});
+		// 	    	},
+		// 	    	error: (u, error) => {
+		// 	    		this.setState({
+		// 	    			error: error.message
+		// 	    		})
+		// 	    	}
+		// 	    )
 	}
 });
 
@@ -32145,7 +32191,100 @@ var Backbone = require('backbone');
 module.exports = React.createClass({
 	displayName: 'exports',
 
+	componentWillMount: function componentWillMount() {
+		var _this = this;
+
+		this.props.router.on('route', function () {
+			_this.forceUpdate();
+		});
+	},
 	render: function render() {
+		var links = [];
+		if (Parse.User.current()) {
+			links.push(React.createElement(
+				'li',
+				{ className: 'navList', key: 'navlist1' },
+				React.createElement(
+					'a',
+					{ href: '#' },
+					'HOME'
+				)
+			));
+			links.push(React.createElement(
+				'li',
+				{ className: 'navList', key: 'navlist2' },
+				React.createElement(
+					'a',
+					{ href: '#leagues' },
+					'VIEW SCHEDULES AND PURCHASE TICKETS'
+				)
+			));
+			links.push(React.createElement(
+				'li',
+				{ className: 'navList', key: 'navlist3' },
+				React.createElement(
+					'a',
+					{ href: '#sellTickets' },
+					'SELL TICKETS'
+				)
+			));
+			links.push(React.createElement(
+				'li',
+				{ className: 'navList', key: 'navlist4' },
+				React.createElement(
+					'a',
+					{ href: '#viewTickets' },
+					'VIEW YOUR TICKETS'
+				)
+			));
+			links.push(React.createElement(
+				'li',
+				{ className: 'navList', key: 'navlist6' },
+				React.createElement(
+					'a',
+					{ href: '#logout' },
+					'LOGOUT'
+				)
+			));
+		} else {
+			links.push(React.createElement(
+				'li',
+				{ className: 'navList', key: 'navlist1' },
+				React.createElement(
+					'a',
+					{ href: '#' },
+					'HOME'
+				)
+			));
+			links.push(React.createElement(
+				'li',
+				{ className: 'navList', key: 'navlist5' },
+				React.createElement(
+					'a',
+					{ href: '#register' },
+					'REGISTER'
+				)
+			));
+			links.push(React.createElement(
+				'li',
+				{ className: 'navList', key: 'navlist6' },
+				React.createElement(
+					'a',
+					{ href: '#login' },
+					'LOGIN'
+				)
+			));
+			links.push(React.createElement(
+				'li',
+				{ className: 'navList', key: 'navlist2' },
+				React.createElement(
+					'a',
+					{ href: '#leagues' },
+					'VIEW SCHEDULES AND PURCHASE TICKETS'
+				)
+			));
+		}
+
 		return React.createElement(
 			'div',
 			{ className: 'col-sm-12' },
@@ -32155,60 +32294,7 @@ module.exports = React.createClass({
 				React.createElement(
 					'ul',
 					{ className: 'ul' },
-					React.createElement(
-						'li',
-						{ className: 'navList' },
-						React.createElement(
-							'a',
-							{ href: '#' },
-							'HOME'
-						)
-					),
-					React.createElement(
-						'li',
-						{ className: 'navList' },
-						React.createElement(
-							'a',
-							{ href: '#register' },
-							'REGISTER'
-						)
-					),
-					React.createElement(
-						'li',
-						{ className: 'navList' },
-						React.createElement(
-							'a',
-							{ href: '#login' },
-							'LOGIN'
-						)
-					),
-					React.createElement(
-						'li',
-						{ className: 'navList' },
-						React.createElement(
-							'a',
-							{ href: '#leagues' },
-							'VIEW SCHEDULES AND PURCHASE TICKETS'
-						)
-					),
-					React.createElement(
-						'li',
-						{ className: 'navList' },
-						React.createElement(
-							'a',
-							{ href: '#sellTickets' },
-							'SELL TICKETS'
-						)
-					),
-					React.createElement(
-						'li',
-						{ className: 'navList' },
-						React.createElement(
-							'a',
-							{ href: '#viewTickets' },
-							'VIEW YOUR TICKETS'
-						)
-					)
+					links
 				)
 			)
 		);
@@ -32233,7 +32319,7 @@ module.exports = React.createClass({
 			React.createElement(
 				'div',
 				{ className: 'registrationRow' },
-				React.createElement(RegistrationComponent, null),
+				React.createElement(RegistrationComponent, { router: this.props.router }),
 				React.createElement(AlreadyRegisteredComponent, null)
 			)
 		);
@@ -32250,7 +32336,18 @@ var Backbone = require('backbone');
 module.exports = React.createClass({
 	displayName: 'exports',
 
+	getInitialState: function getInitialState() {
+		return { error: null };
+	},
 	render: function render() {
+		var errorElement = null;
+		if (this.state.error) {
+			errorElement = React.createElement(
+				'p',
+				{ className: 'red' },
+				this.state.error
+			);
+		}
 		return React.createElement(
 			'div',
 			{ className: 'col-sm-9' },
@@ -32258,22 +32355,49 @@ module.exports = React.createClass({
 				'div',
 				{ className: 'registrationComponent' },
 				React.createElement(
-					'h1',
-					{ className: 'registrationHeader' },
-					'Register Here'
-				),
-				React.createElement('input', { className: 'registrationInput', placeholder: 'First Name' }),
-				React.createElement('input', { className: 'registrationInput', placeholder: 'Last Name' }),
-				React.createElement('input', { className: 'registrationInput', placeholder: 'Email' }),
-				React.createElement('input', { className: 'registrationInput', placeholder: 'Username' }),
-				React.createElement('input', { className: 'registrationInput', placeholder: 'Password' }),
-				React.createElement(
-					'button',
-					{ className: 'registrationButton' },
-					'Register'
+					'form',
+					{ onSubmit: this.onRegister },
+					React.createElement(
+						'h1',
+						{ className: 'registrationHeader' },
+						'Register Here'
+					),
+					errorElement,
+					React.createElement('input', { className: 'registrationInput', ref: 'firstName', placeholder: 'First Name' }),
+					React.createElement('input', { className: 'registrationInput', ref: 'lastName', placeholder: 'Last Name' }),
+					React.createElement('input', { className: 'registrationInput', ref: 'email', placeholder: 'Email' }),
+					React.createElement('input', { className: 'registrationInput', ref: 'username', placeholder: 'Username' }),
+					React.createElement('input', { type: 'password', className: 'registrationInput', ref: 'password', placeholder: 'Password' }),
+					React.createElement(
+						'button',
+						{ className: 'registrationButton' },
+						'Register'
+					)
 				)
 			)
 		);
+	},
+	onRegister: function onRegister(e) {
+		var _this = this;
+
+		e.preventDefault();
+		var user = new Parse.User();
+		user.signUp({
+			firstName: this.refs.firstName.value,
+			lastName: this.refs.lastName.value,
+			email: this.refs.email.value,
+			username: this.refs.username.value,
+			password: this.refs.password.value
+		}, {
+			success: function success(u) {
+				_this.props.router.navigate('sellTickets', { trigger: true });
+			},
+			error: function error(u, _error) {
+				_this.setState({
+					error: _error.message
+				});
+			}
+		});
 	}
 });
 
@@ -32281,11 +32405,11 @@ module.exports = React.createClass({
 'use strict';
 
 var React = require('react');
+var ReactDOM = require('react-dom');
 var TicketModel = require('../models/TicketModel');
 var TeamModel = require('../models/TeamModel');
 var LeagueModel = require('../models/LeagueModel');
 var GameModel = require('../models/GameModel');
-var TicketModel = require('../models/TicketModel');
 
 module.exports = React.createClass({
 	displayName: 'exports',
@@ -32359,7 +32483,7 @@ module.exports = React.createClass({
 		var allGames = this.state.games.map(function (game, index) {
 			return React.createElement(
 				'option',
-				{ key: index },
+				{ value: game.id, key: index },
 				game.get('team1').get('teamName'),
 				'  vs ',
 				game.get('team2').get('teamName'),
@@ -32370,7 +32494,7 @@ module.exports = React.createClass({
 
 		return React.createElement(
 			'div',
-			{ className: 'col-sm-12', onSubmit: this.onPostTickets },
+			{ className: 'col-sm-12' },
 			React.createElement(
 				'div',
 				{ className: 'sellTicketsComponent' },
@@ -32437,7 +32561,7 @@ module.exports = React.createClass({
 					null,
 					React.createElement(
 						'select',
-						{ className: 'sellTicketsSelect3' },
+						{ ref: 'game', className: 'sellTicketsSelect3' },
 						React.createElement(
 							'option',
 							{ value: '' },
@@ -32457,7 +32581,7 @@ module.exports = React.createClass({
 					null,
 					React.createElement(
 						'button',
-						{ className: 'sellTicketsButton' },
+						{ onClick: this.onPostTickets, className: 'sellTicketsButton' },
 						'Post Tickets For Sale'
 					)
 				)
@@ -32466,14 +32590,21 @@ module.exports = React.createClass({
 	},
 	onPostTickets: function onPostTickets(e) {
 		e.preventDefault();
+		console.log(this.refs.game.value);
+		var targetGameModel = new GameModel({ objectId: this.refs.game.value });
 		var ticket = new TicketModel();
-		ticket.set('seat', this.refs.seat.getDOMNode().value);
-		ticket.set('price', this.refs.price.getDOMNode().value);
-		ticket.save();
+		ticket.set('seat', this.refs.seat.value);
+		ticket.set('price', parseFloat(this.refs.price.value));
+		ticket.set('game', targetGameModel);
+		ticket.save({
+			success: function success(u) {
+				console.log('success');
+			}
+		});
 	}
 });
 
-},{"../models/GameModel":177,"../models/LeagueModel":178,"../models/TeamModel":179,"../models/TicketModel":180,"react":160}],172:[function(require,module,exports){
+},{"../models/GameModel":178,"../models/LeagueModel":179,"../models/TeamModel":180,"../models/TicketModel":181,"react":160,"react-dom":5}],172:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -32556,7 +32687,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"../models/LeagueModel":178,"../models/TeamModel":179,"./GamesComponent":163,"./LeaguesComponent":166,"./TeamRowComponent":172,"react":160}],174:[function(require,module,exports){
+},{"../models/LeagueModel":179,"../models/TeamModel":180,"./GamesComponent":163,"./LeaguesComponent":166,"./TeamRowComponent":172,"react":160}],174:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -32676,7 +32807,44 @@ module.exports = React.createClass({
 	}
 });
 
-},{"../models/GameModel":177,"../models/LeagueModel":178,"../models/TeamModel":179,"../models/TicketModel":180,"./GameRowComponent":162,"./LeaguesComponent":166,"./TeamRowComponent":172,"./TeamsComponent":173,"./TicketRowComponent":174,"react":160}],176:[function(require,module,exports){
+},{"../models/GameModel":178,"../models/LeagueModel":179,"../models/TeamModel":180,"../models/TicketModel":181,"./GameRowComponent":162,"./LeaguesComponent":166,"./TeamRowComponent":172,"./TeamsComponent":173,"./TicketRowComponent":174,"react":160}],176:[function(require,module,exports){
+'use strict';
+
+var React = require('react');
+var ReactDOM = require('react-dom');
+var Backbone = require('backbone');
+
+module.exports = React.createClass({
+	displayName: 'exports',
+
+	render: function render() {
+		return React.createElement(
+			'div',
+			{ className: 'col-sm-12' },
+			React.createElement(
+				'div',
+				{ className: 'viewTicketsComponent' },
+				React.createElement(
+					'h1',
+					{ className: 'viewTicketsHeader' },
+					'Welcome'
+				),
+				React.createElement(
+					'h3',
+					{ className: 'viewTicketsContent' },
+					'These are the tickets you currently have for sale!!!'
+				),
+				React.createElement(
+					'h3',
+					{ className: 'viewTicketsContent' },
+					'Click on any of the tickets below to remove them.'
+				)
+			)
+		);
+	}
+});
+
+},{"backbone":1,"react":160,"react-dom":5}],177:[function(require,module,exports){
 'use strict';
 var React = require('react');
 var ReactDOM = require('react-dom');
@@ -32695,6 +32863,7 @@ var TeamsComponent = require('./components/TeamsComponent');
 var GamesComponent = require('./components/GamesComponent');
 var TicketsComponent = require('./components/TicketsComponent');
 var SellTicketsComponent = require('./components/SellTicketsComponent');
+var ViewTicketsComponent = require('./components/ViewTicketsComponent');
 
 var app = document.getElementById('app');
 
@@ -32703,6 +32872,7 @@ var Router = Backbone.Router.extend({
 		'': 'home',
 		'register': 'register',
 		'login': 'login',
+		'logout': 'logout',
 		'leagues': 'leagues',
 		'sellTickets': 'sellTickets',
 		'viewTickets': 'viewTickets',
@@ -32714,11 +32884,18 @@ var Router = Backbone.Router.extend({
 	home: function home() {
 		ReactDOM.render(React.createElement(HomePageComponent, null), app);
 	},
+	logout: function logout() {
+		Parse.User.logOut();
+		this.navigate('', { trigger: true });
+	},
+	viewTickets: function viewTickets() {
+		ReactDOM.render(React.createElement(ViewTicketsComponent, null), app);
+	},
 	register: function register() {
-		ReactDOM.render(React.createElement(RegisterComponent, null), app);
+		ReactDOM.render(React.createElement(RegisterComponent, { router: this }), app);
 	},
 	login: function login() {
-		ReactDOM.render(React.createElement(LoginComponent, null), app);
+		ReactDOM.render(React.createElement(LoginComponent, { router: this }), app);
 	},
 	leagues: function leagues() {
 		ReactDOM.render(React.createElement(LeaguesComponent, null), app);
@@ -32733,7 +32910,11 @@ var Router = Backbone.Router.extend({
 		ReactDOM.render(React.createElement(TicketsComponent, { gameId: gameId }), app);
 	},
 	sellTickets: function sellTickets() {
-		ReactDOM.render(React.createElement(SellTicketsComponent, null), app);
+		if (Parse.User.current()) {
+			ReactDOM.render(React.createElement(SellTicketsComponent, null), app);
+		} else {
+			ReactDOM.render(React.createElement(LoginComponent, { router: this }), app);
+		}
 	}
 });
 
@@ -32742,35 +32923,35 @@ Backbone.history.start();
 
 ReactDOM.render(React.createElement(NavigationComponent, { router: r }), document.getElementById('nav'));
 
-},{"./components/GamesComponent":163,"./components/HomePageComponent":164,"./components/LeaguesComponent":166,"./components/LoginComponent":167,"./components/NavigationComponent":168,"./components/RegisterComponent":169,"./components/SellTicketsComponent":171,"./components/TeamsComponent":173,"./components/TicketsComponent":175,"backbone":1,"jquery":4,"react":160,"react-dom":5}],177:[function(require,module,exports){
+},{"./components/GamesComponent":163,"./components/HomePageComponent":164,"./components/LeaguesComponent":166,"./components/LoginComponent":167,"./components/NavigationComponent":168,"./components/RegisterComponent":169,"./components/SellTicketsComponent":171,"./components/TeamsComponent":173,"./components/TicketsComponent":175,"./components/ViewTicketsComponent":176,"backbone":1,"jquery":4,"react":160,"react-dom":5}],178:[function(require,module,exports){
 'use strict';
 
 module.exports = Parse.Object.extend({
 	className: 'Game'
 });
 
-},{}],178:[function(require,module,exports){
+},{}],179:[function(require,module,exports){
 'use strict';
 
 module.exports = Parse.Object.extend({
 	className: 'League'
 });
 
-},{}],179:[function(require,module,exports){
+},{}],180:[function(require,module,exports){
 'use strict';
 
 module.exports = Parse.Object.extend({
 	className: 'Team'
 });
 
-},{}],180:[function(require,module,exports){
+},{}],181:[function(require,module,exports){
 'use strict';
 
 module.exports = Parse.Object.extend({
 	className: 'Tickets'
 });
 
-},{}]},{},[176])
+},{}]},{},[177])
 
 
 //# sourceMappingURL=bundle.js.map
