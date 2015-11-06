@@ -32239,7 +32239,7 @@ module.exports = React.createClass({
 			));
 			links.push(React.createElement(
 				'li',
-				{ className: 'navList', key: 'navlist6' },
+				{ className: 'navList', key: 'navlist7' },
 				React.createElement(
 					'a',
 					{ href: '#logout' },
@@ -32732,6 +32732,7 @@ module.exports = React.createClass({
 		var _this = this;
 
 		var game = new GameModel({ objectId: this.props.gameId });
+		var self = this;
 		var firstGameQuery = new Parse.Query(TicketModel);
 		firstGameQuery.equalTo('game', game);
 		// var secondGameQuery = new Parse.Query(TicketModel);
@@ -32744,6 +32745,20 @@ module.exports = React.createClass({
 			console.log(tickets);
 			_this.setState({ tickets: tickets });
 		});
+
+		this.handler = StripeCheckout.configure({
+			key: 'pk_test_yIHyUgBhYQAMPe3cpVqJeG83',
+			image: '/img/documentation/checkout/marketplace.png',
+			locale: 'auto',
+			token: function token(_token) {
+				console.log(self.chosenTicket);
+				self.chosenTicket.destroy();
+				self.props.router.navigate('confirmation', { trigger: true });
+				// Use the token to create the charge with a server-side script.
+				// You can access the token ID with `token.id`
+			}
+		});
+
 		// query.equalTo('game', game)
 		// query.find().then(
 		// 	(tickets) => {
@@ -32752,30 +32767,54 @@ module.exports = React.createClass({
 		// )
 	},
 
+	purchaseTicket: function purchaseTicket(ticket) {
+		console.log(ticket.get('price'));
+		// var myState = this.state.tickets;
+		// var self = this;
+		// var allTickets = myState.map(function(ticket, index) {
+		// 	var prefix = '#games/';
+		// 	var url = prefix+ticket.id;
+		// 	var seat = `${ticket.get('seat')}`;
+		// var price = ticket.get('price');
+		// });
+		// var ticketQuery = new Parse.Query(TicketModel);
+		// ticketQuery.find.then(
+		// 	(tickets) => {
+		// 		this.setState({tickets: tickets})
+		// 	}
+		// )
+		console.log('hello world');
+		this.chosenTicket = ticket;
+		this.handler.open({
+			name: 'Purchase Tickets',
+			description: 'Enter card info to complete purchase',
+			amount: ticket.get('price') * 100
+		});
+	},
+
 	render: function render() {
 		var myState = this.state.tickets;
+		var self = this;
 		var allTickets = myState.map(function (ticket, index) {
-			var prefix = '#games/';
-			var url = prefix + ticket.id;
 			var seat = '' + ticket.get('seat');
 			var price = '' + ticket.get('price');
 			return React.createElement(
 				'div',
 				{ key: index },
 				React.createElement(
-					'a',
-					{ href: url },
+					'button',
+					{ onClick: self.purchaseTicket.bind(self, ticket) },
 					' ',
 					React.createElement(
 						'span',
 						null,
 						seat + ', $' + price,
 						' '
-					),
-					' '
+					)
 				)
 			);
 		});
+
 		// var allTickets = this.state.tickets.map(function(ticket) {
 		// 	var prefix = '#games/';
 		// 	var url = prefix+ticket.id;
@@ -32873,6 +32912,7 @@ var Router = Backbone.Router.extend({
 		'register': 'register',
 		'login': 'login',
 		'logout': 'logout',
+		'confirmation': 'confirmation',
 		'leagues': 'leagues',
 		'sellTickets': 'sellTickets',
 		'viewTickets': 'viewTickets',
@@ -32897,6 +32937,9 @@ var Router = Backbone.Router.extend({
 	login: function login() {
 		ReactDOM.render(React.createElement(LoginComponent, { router: this }), app);
 	},
+	confirmation: function confirmation() {
+		ReactDOM.render(React.createElement(HomePageComponent, null), app);
+	},
 	leagues: function leagues() {
 		ReactDOM.render(React.createElement(LeaguesComponent, null), app);
 	},
@@ -32907,7 +32950,7 @@ var Router = Backbone.Router.extend({
 		ReactDOM.render(React.createElement(GamesComponent, { teamId: teamId }), app);
 	},
 	tickets: function tickets(gameId) {
-		ReactDOM.render(React.createElement(TicketsComponent, { gameId: gameId }), app);
+		ReactDOM.render(React.createElement(TicketsComponent, { gameId: gameId, router: this }), app);
 	},
 	sellTickets: function sellTickets() {
 		if (Parse.User.current()) {
