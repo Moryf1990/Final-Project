@@ -1,6 +1,6 @@
 .leaguesContainer {
 	background: #E7E09A;
-	height: 50em;
+	height: 70em;
 	padding-top: 1em;
 
 	.leaguesRow {
@@ -24,5 +24,15 @@
 
 	.leaguesHeader {
 		font-family: Lobster Two;
+	}
+
+	.leagueButton {
+		width: 20em;
+		margin-top: 1em;
+		padding-bottom: 1.5em;
+	}
+
+	.leagueList {
+		margin-top: 1.5em;
 	}
 }

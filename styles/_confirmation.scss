@@ -1,0 +1,17 @@
+.confirmationComponent {
+	background: #E7E09A;
+	height: 60em;
+	padding-top: 1em;
+
+	.confirmationHeader {
+		font-family: Lobster Two;
+		text-align: center;
+	}
+
+	.confirmationContent {
+		text-align: center;
+		font-family: 'Roboto Condensed', sans-serif;
+		font-weight: 900;
+		margin-left: 1em;
+	}
+}

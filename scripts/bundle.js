@@ -31751,6 +31751,43 @@ module.exports = React.createClass({
 'use strict';
 
 var React = require('react');
+var ReactDOM = require('react-dom');
+var Backbone = require('backbone');
+
+module.exports = React.createClass({
+	displayName: 'exports',
+
+	render: function render() {
+		return React.createElement(
+			'div',
+			{ className: 'col-sm-12' },
+			React.createElement(
+				'div',
+				{ className: 'confirmationComponent' },
+				React.createElement(
+					'h1',
+					{ className: 'confirmationHeader' },
+					'Your Tickets Have Been Successfully Purchased'
+				),
+				React.createElement(
+					'h3',
+					{ className: 'confirmationContent' },
+					'Congratulations on your purchase!'
+				),
+				React.createElement(
+					'h3',
+					{ className: 'confirmationContent' },
+					'Hope you enjoy the game!!'
+				)
+			)
+		);
+	}
+});
+
+},{"backbone":1,"react":160,"react-dom":5}],163:[function(require,module,exports){
+'use strict';
+
+var React = require('react');
 var GamesComponent = require('./GamesComponent');
 var ReactDOM = require('react-dom');
 
@@ -31769,7 +31806,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./GamesComponent":163,"react":160,"react-dom":5}],163:[function(require,module,exports){
+},{"./GamesComponent":164,"react":160,"react-dom":5}],164:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -31874,7 +31911,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"../models/GameModel":178,"../models/LeagueModel":179,"../models/TeamModel":180,"./GameRowComponent":162,"./LeaguesComponent":166,"./TeamRowComponent":172,"./TeamsComponent":173,"react":160}],164:[function(require,module,exports){
+},{"../models/GameModel":179,"../models/LeagueModel":180,"../models/TeamModel":181,"./GameRowComponent":163,"./LeaguesComponent":167,"./TeamRowComponent":173,"./TeamsComponent":174,"react":160}],165:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -31941,7 +31978,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"backbone":1,"react":160,"react-dom":5}],165:[function(require,module,exports){
+},{"backbone":1,"react":160,"react-dom":5}],166:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -31955,12 +31992,21 @@ module.exports = React.createClass({
 		return React.createElement(
 			'section',
 			null,
-			this.props.league.get('leagueName')
+			React.createElement(
+				'button',
+				{ className: 'leagueButton' },
+				React.createElement(
+					'div',
+					{ className: 'leagueList' },
+					this.props.league.get('leagueName')
+				),
+				React.createElement('img', { src: this.props.league.get('logo').url(), alt: 'Smiley face', height: '70', width: '70' })
+			)
 		);
 	}
 });
 
-},{"./LeaguesComponent":166,"react":160,"react-dom":5}],166:[function(require,module,exports){
+},{"./LeaguesComponent":167,"react":160,"react-dom":5}],167:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -32102,7 +32148,7 @@ module.exports = React.createClass({
 // 	this.props.router.navigate('#teams/'+this.refs.thisLeague.value, {trigger: true});
 // }
 
-},{"../models/LeagueModel":179,"./LeagueRowComponent":165,"backbone":1,"react":160,"react-dom":5}],167:[function(require,module,exports){
+},{"../models/LeagueModel":180,"./LeagueRowComponent":166,"backbone":1,"react":160,"react-dom":5}],168:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -32182,7 +32228,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"backbone":1,"react":160,"react-dom":5}],168:[function(require,module,exports){
+},{"backbone":1,"react":160,"react-dom":5}],169:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -32301,7 +32347,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"backbone":1,"react":160}],169:[function(require,module,exports){
+},{"backbone":1,"react":160}],170:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -32326,7 +32372,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./AlreadyRegisteredComponent":161,"./RegistrationComponent":170,"backbone":1,"react":160}],170:[function(require,module,exports){
+},{"./AlreadyRegisteredComponent":161,"./RegistrationComponent":171,"backbone":1,"react":160}],171:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -32401,7 +32447,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"backbone":1,"react":160,"react-dom":5}],171:[function(require,module,exports){
+},{"backbone":1,"react":160,"react-dom":5}],172:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -32604,7 +32650,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"../models/GameModel":178,"../models/LeagueModel":179,"../models/TeamModel":180,"../models/TicketModel":181,"react":160,"react-dom":5}],172:[function(require,module,exports){
+},{"../models/GameModel":179,"../models/LeagueModel":180,"../models/TeamModel":181,"../models/TicketModel":182,"react":160,"react-dom":5}],173:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -32618,12 +32664,21 @@ module.exports = React.createClass({
 		return React.createElement(
 			'section',
 			null,
-			this.props.team.get('teamName')
+			React.createElement(
+				'button',
+				{ className: 'teamButton' },
+				React.createElement(
+					'div',
+					{ className: 'teamName' },
+					this.props.team.get('teamName')
+				),
+				React.createElement('img', { src: this.props.team.get('teamLogo').url(), alt: 'Smiley face', height: '70', width: '70' })
+			)
 		);
 	}
 });
 
-},{"./TeamsComponent":173,"react":160,"react-dom":5}],173:[function(require,module,exports){
+},{"./TeamsComponent":174,"react":160,"react-dom":5}],174:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -32687,7 +32742,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"../models/LeagueModel":179,"../models/TeamModel":180,"./GamesComponent":163,"./LeaguesComponent":166,"./TeamRowComponent":172,"react":160}],174:[function(require,module,exports){
+},{"../models/LeagueModel":180,"../models/TeamModel":181,"./GamesComponent":164,"./LeaguesComponent":167,"./TeamRowComponent":173,"react":160}],175:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -32707,7 +32762,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./TicketsComponent":175,"react":160,"react-dom":5}],175:[function(require,module,exports){
+},{"./TicketsComponent":176,"react":160,"react-dom":5}],176:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -32846,7 +32901,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"../models/GameModel":178,"../models/LeagueModel":179,"../models/TeamModel":180,"../models/TicketModel":181,"./GameRowComponent":162,"./LeaguesComponent":166,"./TeamRowComponent":172,"./TeamsComponent":173,"./TicketRowComponent":174,"react":160}],176:[function(require,module,exports){
+},{"../models/GameModel":179,"../models/LeagueModel":180,"../models/TeamModel":181,"../models/TicketModel":182,"./GameRowComponent":163,"./LeaguesComponent":167,"./TeamRowComponent":173,"./TeamsComponent":174,"./TicketRowComponent":175,"react":160}],177:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -32883,7 +32938,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"backbone":1,"react":160,"react-dom":5}],177:[function(require,module,exports){
+},{"backbone":1,"react":160,"react-dom":5}],178:[function(require,module,exports){
 'use strict';
 var React = require('react');
 var ReactDOM = require('react-dom');
@@ -32903,6 +32958,7 @@ var GamesComponent = require('./components/GamesComponent');
 var TicketsComponent = require('./components/TicketsComponent');
 var SellTicketsComponent = require('./components/SellTicketsComponent');
 var ViewTicketsComponent = require('./components/ViewTicketsComponent');
+var ConfirmationComponent = require('./components/ConfirmationComponent');
 
 var app = document.getElementById('app');
 
@@ -32938,7 +32994,7 @@ var Router = Backbone.Router.extend({
 		ReactDOM.render(React.createElement(LoginComponent, { router: this }), app);
 	},
 	confirmation: function confirmation() {
-		ReactDOM.render(React.createElement(HomePageComponent, null), app);
+		ReactDOM.render(React.createElement(ConfirmationComponent, null), app);
 	},
 	leagues: function leagues() {
 		ReactDOM.render(React.createElement(LeaguesComponent, null), app);
@@ -32966,35 +33022,35 @@ Backbone.history.start();
 
 ReactDOM.render(React.createElement(NavigationComponent, { router: r }), document.getElementById('nav'));
 
-},{"./components/GamesComponent":163,"./components/HomePageComponent":164,"./components/LeaguesComponent":166,"./components/LoginComponent":167,"./components/NavigationComponent":168,"./components/RegisterComponent":169,"./components/SellTicketsComponent":171,"./components/TeamsComponent":173,"./components/TicketsComponent":175,"./components/ViewTicketsComponent":176,"backbone":1,"jquery":4,"react":160,"react-dom":5}],178:[function(require,module,exports){
+},{"./components/ConfirmationComponent":162,"./components/GamesComponent":164,"./components/HomePageComponent":165,"./components/LeaguesComponent":167,"./components/LoginComponent":168,"./components/NavigationComponent":169,"./components/RegisterComponent":170,"./components/SellTicketsComponent":172,"./components/TeamsComponent":174,"./components/TicketsComponent":176,"./components/ViewTicketsComponent":177,"backbone":1,"jquery":4,"react":160,"react-dom":5}],179:[function(require,module,exports){
 'use strict';
 
 module.exports = Parse.Object.extend({
 	className: 'Game'
 });
 
-},{}],179:[function(require,module,exports){
+},{}],180:[function(require,module,exports){
 'use strict';
 
 module.exports = Parse.Object.extend({
 	className: 'League'
 });
 
-},{}],180:[function(require,module,exports){
+},{}],181:[function(require,module,exports){
 'use strict';
 
 module.exports = Parse.Object.extend({
 	className: 'Team'
 });
 
-},{}],181:[function(require,module,exports){
+},{}],182:[function(require,module,exports){
 'use strict';
 
 module.exports = Parse.Object.extend({
 	className: 'Tickets'
 });
 
-},{}]},{},[177])
+},{}]},{},[178])
 
 
 //# sourceMappingURL=bundle.js.map
