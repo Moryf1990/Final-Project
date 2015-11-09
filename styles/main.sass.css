@@ -170,8 +170,9 @@
 
 .ticketsComponent {
   background: #E7E09A;
-  height: 50em;
-  padding-top: 1em; }
+  height: 100%;
+  padding-top: 1em;
+  padding-bottom: 1em; }
   .ticketsComponent .ticketsHeader {
     font-family: Lobster Two;
     text-align: center; }
@@ -182,9 +183,15 @@
     text-decoration: underline;
     text-align: center; }
   .ticketsComponent .ticketsList {
-    margin-left: 2em;
+    text-align: center;
     font-family: 'Roboto Condensed', sans-serif;
     font-weight: 900; }
+  .ticketsComponent .ticketsList button {
+    margin-top: 1em;
+    width: 10em;
+    background: teal;
+    color: white;
+    border: none; }
 
 .confirmationComponent {
   background: #E7E09A;
@@ -211,6 +218,14 @@
     font-weight: 900;
     margin-left: 1em;
     text-align: center; }
+  .viewTicketsComponent .viewTicketsList {
+    text-align: center; }
+  .viewTicketsComponent .viewTicketsList button {
+    background: teal;
+    color: #fff;
+    border: none;
+    width: 10em;
+    margin-top: 1em; }
 
 .gamesComponent {
   background: #E7E09A;
@@ -232,6 +247,10 @@
     margin-left: 1em;
     text-decoration: underline;
     text-align: center; }
+  .gamesComponent .gamesList div {
+    margin-top: 1em; }
+  .gamesComponent .games {
+    color: teal; }
 
 .col-sm-3 {
   padding-right: 0em; }

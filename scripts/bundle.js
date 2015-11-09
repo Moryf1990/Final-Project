@@ -31871,16 +31871,16 @@ module.exports = React.createClass({
 				{ key: index },
 				React.createElement(
 					'a',
-					{ href: url },
+					{ href: url, className: 'games' },
 					' ',
 					game.get('team1').get('teamName'),
 					' vs ',
-					game.get('team2').get('teamName')
-				),
-				React.createElement(
-					'span',
-					null,
-					' ' + game.get('startDate').toDateString() + ' at ' + timeStart + ',  ' + location
+					game.get('team2').get('teamName'),
+					React.createElement(
+						'span',
+						null,
+						' ' + game.get('startDate').toDateString() + ' at ' + timeStart + 'pm, ' + location
+					)
 				)
 			);
 		});
@@ -32635,6 +32635,8 @@ module.exports = React.createClass({
 		);
 	},
 	onPostTickets: function onPostTickets(e) {
+		var _this3 = this;
+
 		e.preventDefault();
 		console.log(this.refs.game.value);
 		var targetGameModel = new GameModel({ objectId: this.refs.game.value });
@@ -32642,9 +32644,10 @@ module.exports = React.createClass({
 		ticket.set('seat', this.refs.seat.value);
 		ticket.set('price', parseFloat(this.refs.price.value));
 		ticket.set('game', targetGameModel);
+		ticket.set('userTickets', Parse.User.current());
 		ticket.save({
 			success: function success(u) {
-				console.log('success');
+				_this3.props.router.navigate('viewTickets', { trigger: true });
 			}
 		});
 	}
@@ -32756,8 +32759,16 @@ module.exports = React.createClass({
 		return React.createElement(
 			'section',
 			null,
-			this.props.ticket.get('seat'),
-			this.props.ticket.get('price')
+			React.createElement(
+				'div',
+				null,
+				this.props.ticket.get('seat')
+			),
+			React.createElement(
+				'div',
+				null,
+				this.props.ticket.get('price')
+			)
 		);
 	}
 });
@@ -32907,11 +32918,56 @@ module.exports = React.createClass({
 var React = require('react');
 var ReactDOM = require('react-dom');
 var Backbone = require('backbone');
+var LeaguesComponent = require('./LeaguesComponent');
+var TeamRowComponent = require('./TeamRowComponent');
+var GameRowComponent = require('./GameRowComponent');
+var TicketRowComponent = require('./TicketRowComponent');
+var TeamsComponent = require('./TeamsComponent');
+var TeamModel = require('../models/TeamModel');
+var LeagueModel = require('../models/LeagueModel');
+var GameModel = require('../models/GameModel');
+var TicketModel = require('../models/TicketModel');
 
 module.exports = React.createClass({
 	displayName: 'exports',
 
+	getInitialState: function getInitialState() {
+		return { tickets: [] };
+	},
+
+	componentWillMount: function componentWillMount(e) {
+		var _this = this;
+
+		var currentUser = Parse.User.current();
+		var self = this;
+		var firstGameQuery = new Parse.Query(TicketModel);
+		firstGameQuery.equalTo('userTickets', currentUser);
+		firstGameQuery.find().then(function (tickets) {
+			_this.setState({ tickets: tickets });
+		});
+	},
 	render: function render() {
+		var myState = this.state.tickets;
+		var self = this;
+		var allTickets = myState.map(function (ticket, index) {
+			var seat = '' + ticket.get('seat');
+			var price = '' + ticket.get('price');
+			return React.createElement(
+				'div',
+				{ key: index },
+				React.createElement(
+					'button',
+					null,
+					' ',
+					React.createElement(
+						'span',
+						null,
+						seat + ', $' + price,
+						' '
+					)
+				)
+			);
+		});
 		return React.createElement(
 			'div',
 			{ className: 'col-sm-12' },
@@ -32932,13 +32988,22 @@ module.exports = React.createClass({
 					'h3',
 					{ className: 'viewTicketsContent' },
 					'Click on any of the tickets below to remove them.'
+				),
+				React.createElement(
+					'div',
+					{ className: 'viewTicketsList' },
+					React.createElement(
+						'div',
+						null,
+						allTickets
+					)
 				)
 			)
 		);
 	}
 });
 
-},{"backbone":1,"react":160,"react-dom":5}],178:[function(require,module,exports){
+},{"../models/GameModel":179,"../models/LeagueModel":180,"../models/TeamModel":181,"../models/TicketModel":182,"./GameRowComponent":163,"./LeaguesComponent":167,"./TeamRowComponent":173,"./TeamsComponent":174,"./TicketRowComponent":175,"backbone":1,"react":160,"react-dom":5}],178:[function(require,module,exports){
 'use strict';
 var React = require('react');
 var ReactDOM = require('react-dom');
@@ -33010,7 +33075,7 @@ var Router = Backbone.Router.extend({
 	},
 	sellTickets: function sellTickets() {
 		if (Parse.User.current()) {
-			ReactDOM.render(React.createElement(SellTicketsComponent, null), app);
+			ReactDOM.render(React.createElement(SellTicketsComponent, { router: this }), app);
 		} else {
 			ReactDOM.render(React.createElement(LoginComponent, { router: this }), app);
 		}
