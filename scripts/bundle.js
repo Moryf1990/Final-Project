@@ -32985,11 +32985,6 @@ module.exports = React.createClass({
 					'These are the tickets you currently have for sale!!!'
 				),
 				React.createElement(
-					'h3',
-					{ className: 'viewTicketsContent' },
-					'Click on any of the tickets below to remove them.'
-				),
-				React.createElement(
 					'div',
 					{ className: 'viewTicketsList' },
 					React.createElement(
