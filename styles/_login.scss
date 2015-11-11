@@ -1,5 +1,5 @@
 .loginComponent {
-	background: #E7E09A;
+	background: rgba(0, 128, 128, .1);
 	height: 50em;
 	padding-top: 1em;
 
@@ -10,27 +10,25 @@
 
 	.loginHeader {
 		margin-top: 3em;
-		font-family: Lobster Two;
+		font-family: 'Roboto Condensed', sans-serif;
 		text-align: center;
 	}
 
 	.loginInput {
 		display: block;
 		margin-top: 2em;
-		margin-left: 5em;
-		width: 80%;
-		height: 2em;
+		width: 100%;
 		border: 1px solid teal;
+		padding: 10px;
 	}
 
 	.loginButton {
 		background: teal;
 		border: none;
 		color: white;
-		height: 5em;
-		width: 10em;
+		width: 30%;
 		margin-top: 1em;
-		margin-left: 45%;
+		margin-left: 35%;
 		-webkit-border-radius: 10px;
 	}
 }

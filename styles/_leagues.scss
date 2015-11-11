@@ -1,5 +1,5 @@
 .leaguesContainer {
-	background: #E7E09A;
+	background: rgba(0, 128, 128, .1);
 	height: 70em;
 	padding-top: 1em;
 
@@ -17,17 +17,19 @@
 
 	.leaguesList {
 		margin-left: 2em;
-		font-family: 'Roboto Condensed', sans-serif;
+		font-family: Roboto Slab;
 		font-weight: 900;
 		text-align: center;
 	}
 
 	.leaguesHeader {
-		font-family: Lobster Two;
+		font-family: 'Roboto Condensed', sans-serif;
 	}
 
 	.leagueButton {
 		width: 20em;
+		background: #fff;
+		border: 1px solid teal;
 		margin-top: 1em;
 		padding-bottom: 1.5em;
 	}

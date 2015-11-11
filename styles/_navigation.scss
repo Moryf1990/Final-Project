@@ -21,3 +21,35 @@
 	}
 }
 
+.navbar-default .navbar-brand {
+	font-size: 1em;
+	color: white;
+
+	&:hover {
+		color: white;
+	}
+}
+
+.navbar-default .navbar-nav > li > a {
+	padding: 15px 10px;
+	color: white;
+
+	&:hover, &:focus, &:active {
+		color: white;
+	}
+}
+
+.navbar {
+	margin: 0;
+	border: none;
+	border-radius: 0;
+	background: teal;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+	background-color: white;
+}
+
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+	background-color: lighten(rgb(0, 128, 128), 5%);
+}

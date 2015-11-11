@@ -2,10 +2,12 @@
 	padding-right: 0em;
 
 	.alreadyRegisteredComponent {
-		background: #E7E09A;
+		background: #fff;
 		height: 50em;
 		padding-top: 1em;
-		margin-left: -2.5em;
+		width: 100%;
+		margin-left: 0.5em;
+		// margin-left: -2.5em;
 	}
 
 	a {
@@ -27,7 +29,7 @@
 
 	.alreadyRegisteredHeader {
 		text-align: center;
-		font-family: Lobster Two;
+		font-family: 'Roboto Condensed', sans-serif;
 	}
 
 	.alreadyRegisteredContent {

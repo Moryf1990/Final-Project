@@ -1,11 +1,11 @@
 .ticketsComponent {
-	background: #E7E09A;
+	background: rgba(0, 128, 128, .1);
 	height: 50em;
 	padding-top: 1em;
 	padding-bottom: 1em;
 
 	.ticketsHeader {
-		font-family: Lobster Two;
+		font-family: 'Roboto Condensed', sans-serif;
 		text-align: center;
 	}
 
@@ -26,6 +26,7 @@
 	.ticketsList button {
 		margin-top: 1em;
 		width: 10em;
+		-webkit-border-radius: 10px;
 		background: teal;
 		color: white;
 		border: none;
